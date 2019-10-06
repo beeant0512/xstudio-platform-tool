@@ -1,0 +1,10 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+rootProject.name = 'xstudio-spring-quartz'
+
+include "spring-core"
+include "spring-web"
+include "spring-mybatis-paginator"

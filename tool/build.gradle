@@ -1,0 +1,123 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+        mavenLocal()
+
+    }
+    dependencies {
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1")
+    }
+}
+
+plugins {
+    id 'jacoco'
+    id "org.sonarqube" version "2.7.1"
+}
+
+apply plugin: "org.sonarqube"
+    
+// 如果项目不存在嵌套的子项目，则以上配置即可
+// 如果项目存在嵌套的子项目，还要添加以下配置
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property 'sonar.projectName', '工具类'
+        property 'sonar.projectKey', 'com.xstudio:tool'
+        property 'sonar.java.binaries' , "./build/classes/com/xstudio"
+        property 'sonar.java.source' , "1.8"
+        property 'sonar.tests', './src/test/java'
+        property 'sonar.language' , "java"
+        property 'sonar.java.coveragePlugin' , "jacoco"
+        property 'sonar.coverage.exclusions' , "**/model/**"
+        property 'sonar.jacoco.reportPaths' , "target/jacoco.exec"
+    }
+}
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    mavenCentral()
+    mavenLocal()
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    apply plugin: "maven"
+
+    //  在subprojects段中添加以下块内容
+    sonarqube {
+        properties {
+            // 如果同时存在src/main/java与src/main/test，则要按以下方式设置，如果没有单元测试用例目录test，也可以只填写src
+            property "sonar.sources", "src/main/java"
+        }
+    }
+    ext {
+        lombokVersion = "1.18.8"
+        toolVersion = "1.0.0-SNAPSHOT"
+        fastjsonVersion = "1.2.58"
+
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    //打包源码
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    group = 'com.xstudio'
+    version = '1.0.0-SNAPSHOT'
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+        mavenLocal()
+
+    }
+
+    dependencies {
+        compile group: 'com.alibaba', name: 'fastjson', version: "${fastjsonVersion}"
+        compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
+        compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.0'
+        compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.0'
+        compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.9'
+        compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.9.1'
+
+        compile "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+        // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+        compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+
+        // junit test 5
+        testCompile("org.junit.jupiter:junit-jupiter-api:5.5.1")
+        testCompile("org.junit.platform:junit-platform-launcher:1.5.1")
+        testRuntime("org.junit.jupiter:junit-jupiter-engine:5.5.1")
+    }
+
+    jacocoTestReport {
+        group = "Reporting"
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination "${buildDir}/reports/coverage"
+        }
+    }
+}

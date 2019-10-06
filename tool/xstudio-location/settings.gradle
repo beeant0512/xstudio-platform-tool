@@ -1,0 +1,4 @@
+rootProject.name = 'xstudio-location'
+
+includeFlat(":xstudio-core")
+includeFlat(":xstudio-http")

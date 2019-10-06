@@ -1,0 +1,17 @@
+rootProject.name = 'xstudio-tool-all'
+
+includeFlat(":xstudio-antd")
+includeFlat(":xstudio-aop")
+includeFlat(":xstudio-cache")
+includeFlat(":xstudio-card")
+includeFlat(":xstudio-core")
+includeFlat(":xstudio-crypto")
+includeFlat(":xstudio-date")
+includeFlat(":xstudio-dbc")
+includeFlat(":xstudio-http")
+includeFlat(":xstudio-location")
+includeFlat(":xstudio-poi")
+includeFlat(":xstudio-script")
+includeFlat(":xstudio-sensitive")
+includeFlat(":xstudio-serializer")
+includeFlat(":xstudio-spring-web")

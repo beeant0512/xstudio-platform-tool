@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":xstudio-exception")
+
+    compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
+}

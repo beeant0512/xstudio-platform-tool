@@ -1,0 +1,3 @@
+rootProject.name = 'xstudio-spring-security'
+include "spring-core"
+include "spring-web"

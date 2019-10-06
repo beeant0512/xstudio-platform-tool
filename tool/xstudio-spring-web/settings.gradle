@@ -1,0 +1,4 @@
+rootProject.name = 'xstudio-spring-web'
+
+includeFlat(":xstudio-crypto")
+includeFlat(":xstudio-core")

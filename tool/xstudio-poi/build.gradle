@@ -1,0 +1,10 @@
+
+dependencies {
+
+    compile project(":xstudio-spring-web")
+
+    compile group: 'org.apache.poi', name: 'poi', version: '3.17'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.17'
+
+    compile group: 'org.springframework', name: 'spring-web', version: '5.1.7.RELEASE'
+}

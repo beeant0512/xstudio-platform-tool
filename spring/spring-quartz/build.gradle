@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+//    id 'org.springframework.boot' version '2.1.5.RELEASE'
+}
+
+//apply plugin: 'io.spring.dependency-management'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    springBootVersion = "2.1.5.RELEASE"
+}
+
+dependencies {
+    compile project(":spring-core")
+    compile project(":spring-web")
+    compile project(":spring-mybatis-paginator")
+
+    compile("com.xstudio:xstudio-aop:${toolVersion}")
+    compile("com.xstudio:xstudio-http:${toolVersion}")
+    compile("com.xstudio:xstudio-quartz:${toolVersion}")
+
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    compile group: 'org.apache.tomcat.embed', name: 'tomcat-embed-core', version: '9.0.19'
+
+
+    runtime('mysql:mysql-connector-java:5.1.47')
+
+    compile group: 'org.springframework', name: 'spring-context-support', version: '5.1.7.RELEASE'
+    
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.3.1'
+    compile group: 'org.quartz-scheduler', name: 'quartz-jobs', version: '2.3.1'
+}

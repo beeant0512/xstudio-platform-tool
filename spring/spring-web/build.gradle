@@ -1,0 +1,18 @@
+dependencies {
+    compile project(":spring-core")
+    compile project(":spring-aop")
+    
+    compile("com.xstudio:xstudio-http:${toolVersion}")
+    compile("com.xstudio:xstudio-antd:${toolVersion}")
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.7.RELEASE'
+    // https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compileOnly('org.springframework.boot:spring-boot-autoconfigure:2.1.5.RELEASE')
+
+    // api 生成工具
+    // https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+}

@@ -1,0 +1,36 @@
+pluginManagement {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'org.sonarsource.scanner.gradle') {
+                useModule("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${requested.version}")
+            }
+        }
+    }
+}
+
+rootProject.name = 'xstudio-tool'
+
+include ':xstudio-core'
+include ':xstudio-date'
+include ':xstudio-http'
+include ':xstudio-poi'
+include ':xstudio-antd'
+include ':xstudio-quartz'
+include ':xstudio-spring-web'
+include ':xstudio-dbc'
+include ':xstudio-serializer'
+include ':xstudio-exception'
+include ':xstudio-crypto'
+include ':xstudio-sensitive'
+include ':xstudio-xml'
+include ':xstudio-location'
+include ':xstudio-card'
+include ':xstudio-script'
+include ':xstudio-tool-all'

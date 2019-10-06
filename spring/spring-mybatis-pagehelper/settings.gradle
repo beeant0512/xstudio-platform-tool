@@ -1,0 +1,4 @@
+rootProject.name = 'xstudio-spring-mybatis-pagehelper'
+
+include("spring-mybatis")
+include("spring-web")

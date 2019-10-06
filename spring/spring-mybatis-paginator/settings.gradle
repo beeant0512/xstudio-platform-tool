@@ -1,0 +1,4 @@
+rootProject.name = 'xstudio-spring-mybatis-paginator'
+
+include("spring-mybatis")
+include("spring-web")

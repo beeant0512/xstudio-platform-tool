@@ -1,0 +1,3 @@
+rootProject.name = 'xstudio-core'
+
+includeFlat(":xstudio-exception")

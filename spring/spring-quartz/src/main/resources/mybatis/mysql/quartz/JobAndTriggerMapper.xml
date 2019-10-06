@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xstudio.srping.quartz.mapper.JobAndTriggerMapper">
+
+    <select id="getJobAndTriggerDetails" resultType="com.xstudio.srping.quartz.model.JobAndTrigger">
+        SELECT
+            QRTZ_JOB_DETAILS.JOB_NAME jobName,
+            QRTZ_JOB_DETAILS.JOB_GROUP jobGroup,
+            QRTZ_JOB_DETAILS.JOB_CLASS_NAME jobClassName,
+            QRTZ_TRIGGERS.TRIGGER_NAME triggerName,
+            QRTZ_TRIGGERS.TRIGGER_GROUP triggerGroup,
+            QRTZ_TRIGGERS.TRIGGER_STATE triggerState,
+            QRTZ_CRON_TRIGGERS.CRON_EXPRESSION cronExpression,
+            QRTZ_CRON_TRIGGERS.TIME_ZONE_ID timeZoneId
+        FROM
+            QRTZ_JOB_DETAILS
+            JOIN QRTZ_TRIGGERS
+            JOIN QRTZ_CRON_TRIGGERS ON QRTZ_JOB_DETAILS.JOB_NAME = QRTZ_TRIGGERS.JOB_NAME
+                                       AND QRTZ_TRIGGERS.TRIGGER_NAME = QRTZ_CRON_TRIGGERS.TRIGGER_NAME
+                                       AND QRTZ_TRIGGERS.TRIGGER_GROUP = QRTZ_CRON_TRIGGERS.TRIGGER_GROUP
+        <where>
+            <if test="jobAndTrigger.jobName != '' and jobAndTrigger.jobName != null">
+                AND QRTZ_JOB_DETAILS.JOB_NAME like concat('%', #{jobAndTrigger.jobName},'%')
+            </if>
+            <if test="jobAndTrigger.jobClassName != '' and jobAndTrigger.jobClassName != null">
+                AND QRTZ_JOB_DETAILS.JOB_CLASS_NAME like concat('%', #{jobAndTrigger.jobClassName},'%')
+            </if>
+            <if test="jobAndTrigger.jobGroup != '' and jobAndTrigger.jobGroup != null">
+                AND QRTZ_JOB_DETAILS.JOB_GROUP = #{jobAndTrigger.jobGroup}
+            </if>
+            <if test="jobAndTrigger.jobName != '' and jobAndTrigger.jobName != null">
+                AND QRTZ_JOB_DETAILS.JOB_NAME like concat('%', #{jobAndTrigger.jobName},'%')
+            </if>
+            <if test="jobAndTrigger.triggerState != '' and jobAndTrigger.triggerState != null">
+                AND QRTZ_TRIGGERS.TRIGGER_STATE = #{jobAndTrigger.triggerState}
+            </if>
+            <if test="jobAndTrigger.triggerGroup != '' and jobAndTrigger.triggerGroup != null">
+                AND QRTZ_TRIGGERS.TRIGGER_GROUP = #{jobAndTrigger.triggerGroup}
+            </if>
+            <if test="jobAndTrigger.cronExpression != '' and jobAndTrigger.cronExpression != null">
+                AND QRTZ_CRON_TRIGGERS.CRON_EXPRESSION like concat('%', #{jobAndTrigger.cronExpression},'%')
+            </if>
+        </where>
+    </select>
+
+</mapper>

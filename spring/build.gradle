@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+    }
+}
+
+
+subprojects {
+
+    buildscript {
+        repositories {
+            maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+            maven { url "http://mirrors.163.com/" }
+            mavenCentral()
+            mavenLocal()
+        }
+        dependencies {
+        }
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    apply plugin: "maven"
+
+    ext {
+        lombokVersion = "1.18.8"
+        toolVersion = "1.0.0-SNAPSHOT"
+        fastjsonVersion = "1.2.58"
+
+    }
+
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    //打包源码
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    configurations {
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+    }
+
+    group = 'com.xstudio'
+    version = '1.0.0-SNAPSHOT'
+    sourceCompatibility = 1.8
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "http://mirrors.163.com/" }
+        mavenCentral()
+        mavenLocal()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+
+        compile "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    }
+
+    jacocoTestReport {
+        group = "Reporting"
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination "${buildDir}/reports/coverage"
+        }
+    }
+
+    jacocoTestReport {
+        group = "Reporting"
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination "${buildDir}/reports/coverage"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+dependencies {
+    compile project(":xstudio-crypto")
+    compile project(":xstudio-core")
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-web
+    compile group: 'org.springframework', name: 'spring-web', version: '5.1.7.RELEASE'
+}

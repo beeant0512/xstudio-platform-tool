@@ -1,0 +1,3 @@
+rootProject.name = 'xstudio-poi'
+
+includeFlat(":xstudio-spring-web")
