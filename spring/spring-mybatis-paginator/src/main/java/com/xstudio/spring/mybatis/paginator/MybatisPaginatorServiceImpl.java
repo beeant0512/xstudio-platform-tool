@@ -20,7 +20,6 @@ public abstract class MybatisPaginatorServiceImpl<T extends BaseModelObject, K> 
     @Override
     public Msg<PageList<T>> fuzzySearch(T record) {
         PageList<Order> orders = new PageList<>();
-        orders.add(new Order("create_at", Order.Direction.DESC, ""));
 
         Msg<PageList<T>> msg = new Msg<>();
         Msg<PageList<T>> pageListMsg = new Msg<>();
@@ -55,7 +54,6 @@ public abstract class MybatisPaginatorServiceImpl<T extends BaseModelObject, K> 
         Msg<PageList<T>> msg = new Msg<>();
         if (null == pageBounds.getOrders() || pageBounds.getOrders().isEmpty()) {
             List<Order> orders = new ArrayList<>();
-            orders.add(new Order("create_at", Order.Direction.DESC, ""));
             pageBounds.setOrders(orders);
         }
         PageList<T> result = (PageList<T>) getRepositoryDao().fuzzySearchByPager(record, pageBounds);
@@ -71,7 +69,6 @@ public abstract class MybatisPaginatorServiceImpl<T extends BaseModelObject, K> 
     @Override
     public Msg<PageList<T>> selectAllByExample(T record) {
         PageList<Order> orders = new PageList<>();
-        orders.add(new Order("create_at", Order.Direction.DESC, ""));
         return selectAllByExample(record, orders);
     }
 

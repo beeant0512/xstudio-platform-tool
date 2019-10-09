@@ -19,12 +19,10 @@ import java.util.List;
  * @version 2019/5/18
  */
 public abstract class AbstractMybatisPageHelperServiceImpl<T extends BaseModelObject, K> extends AbstractServiceImpl<T, K, PageBounds, PageList<T>, List<T>> {
-    private static final String DEFAULT_ORDER_FIELD = "create_at";
 
     @Override
     public Msg<PageList<T>> fuzzySearch(T record) {
         PageList<Order> orders = new PageList<>();
-        orders.add(new Order(DEFAULT_ORDER_FIELD, Order.Direction.DESC, ""));
 
         Msg<PageList<T>> msg = new Msg<>();
         Msg<PageList<T>> pageListMsg = new Msg<>();
@@ -59,7 +57,6 @@ public abstract class AbstractMybatisPageHelperServiceImpl<T extends BaseModelOb
         Msg<PageList<T>> msg = new Msg<>();
         if (null == pageBounds.getOrders() || pageBounds.getOrders().isEmpty()) {
             List<Order> orders = new ArrayList<>();
-            orders.add(new Order(DEFAULT_ORDER_FIELD, Order.Direction.DESC, ""));
             pageBounds.setOrders(orders);
         }
         PageHelper.startPage(pageBounds.getPage(), pageBounds.getLimit());
@@ -80,10 +77,8 @@ public abstract class AbstractMybatisPageHelperServiceImpl<T extends BaseModelOb
     @Override
     public Msg<PageList<T>> selectAllByExample(T record) {
         PageList<Order> orders = new PageList<>();
-        orders.add(new Order(DEFAULT_ORDER_FIELD, Order.Direction.DESC, ""));
         return selectAllByExample(record, orders);
     }
-
 
     @Override
     public Msg<PageList<T>> selectAllByExample(T record, List<?> orders) {

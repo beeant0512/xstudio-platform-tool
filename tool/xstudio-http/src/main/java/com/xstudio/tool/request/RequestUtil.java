@@ -224,6 +224,20 @@ public class RequestUtil {
     }
 
     /**
+     * 是否form表单提交
+     * @param request
+     * @return
+     */
+    public static boolean isFormUrlencoded(HttpServletRequest request) {
+        String contentType = request.getHeader("Content-Type");
+        if (contentType != null && contentType.startsWith("application/x-www-form-urlencoded")) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * 获取响应状态码
      *
      * @param response {@link HttpResponse}

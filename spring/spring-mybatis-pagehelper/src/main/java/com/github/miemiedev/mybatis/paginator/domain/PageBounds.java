@@ -113,6 +113,7 @@ public class PageBounds extends RowBounds implements Serializable {
         this.page = page;
     }
 
+    @Override
     public int getLimit() {
         return limit;
     }
@@ -139,6 +140,9 @@ public class PageBounds extends RowBounds implements Serializable {
 
     public String getOrdersString() {
         List<Order> orders = getOrders();
+        if (orders.isEmpty()) {
+            return "";
+        }
         StringBuffer orderString = new StringBuffer();
         for (Order order : orders) {
             if (order != null) {
