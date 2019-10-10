@@ -83,29 +83,20 @@ public interface IAbstractDao<T, K, P, M extends List<T>> {
     /**
      * 按条件获取（不含大字段）
      *
-     * @param record   条件
-     * @param distinct 是否distinct
+     * @param record     条件
+     * @param pageBounds 分页、排序参数
      * @return 对象list
      */
-    M selectByExample(T record, boolean distinct);
+    M selectByExample(T record, P pageBounds);
 
     /**
      * 按条件获取（含大字段）
      *
-     * @param record   条件
-     * @param distinct 是否distinct
-     * @return 对象list
-     */
-    M selectByExampleWithBLOBs(T record, boolean distinct);
-
-    /**
-     * 分页获取
-     *
      * @param record     条件
-     * @param pageBounds 分页参数
+     * @param pageBounds 分页、排序参数
      * @return 对象list
      */
-    M selectByExampleByPager(T record, P pageBounds);
+    M selectByExampleWithBLOBs(T record, P pageBounds);
 
     /**
      * 模糊搜索
@@ -119,7 +110,7 @@ public interface IAbstractDao<T, K, P, M extends List<T>> {
      * 分页模糊搜索
      *
      * @param record     对象
-     * @param pageBounds 分页参数
+     * @param pageBounds 分页、排序参数
      * @return 对象list
      */
     M fuzzySearchByPager(T record, P pageBounds);

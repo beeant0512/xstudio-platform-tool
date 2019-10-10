@@ -87,11 +87,11 @@ public interface IAbstractService<T, K, P, L extends List<T>, D extends List<T>>
     /**
      * 按条件获取（不含大字段）
      *
-     * @param record   条件
-     * @param distinct 是否distinct
+     * @param record 条件
+     * @param orders 排序
      * @return 对象list
      */
-    Msg<T> selectOneByExample(T record, boolean distinct);
+    Msg<T> selectOneByExample(T record, List<?> orders);
 
     /**
      * 按条件获取（不含大字段） distinct = true
@@ -104,11 +104,11 @@ public interface IAbstractService<T, K, P, L extends List<T>, D extends List<T>>
     /**
      * 按条件获取（含大字段）
      *
-     * @param record   条件
-     * @param distinct 是否distinct
+     * @param record 条件
+     * @param orders 排序
      * @return 对象list
      */
-    Msg<T> selectOneByExampleWithBLOBs(T record, boolean distinct);
+    Msg<T> selectOneByExampleWithBlobs(T record, List<?> orders);
 
     /**
      * 按条件获取（含大字段）
@@ -128,6 +128,15 @@ public interface IAbstractService<T, K, P, L extends List<T>, D extends List<T>>
     Msg<L> selectAllByExample(T record, List<?> orders);
 
     /**
+     * 按条件获取（含大字段），指定排序
+     *
+     * @param record 条件
+     * @param orders 排序
+     * @return 对象list
+     */
+    Msg<L> selectAllByExampleWithBlobs(T record, List<?> orders);
+
+    /**
      * 分页获取
      *
      * @param record     条件
@@ -135,6 +144,15 @@ public interface IAbstractService<T, K, P, L extends List<T>, D extends List<T>>
      * @return 对象list
      */
     Msg<L> selectByExampleByPager(T record, P pageBounds);
+
+    /**
+     * 分页获取(含大字段）
+     *
+     * @param record     条件
+     * @param pageBounds 分页参数
+     * @return 对象list
+     */
+    Msg<L> selectByExampleWithBlobsByPager(T record, P pageBounds);
 
     /**
      * 模糊搜索

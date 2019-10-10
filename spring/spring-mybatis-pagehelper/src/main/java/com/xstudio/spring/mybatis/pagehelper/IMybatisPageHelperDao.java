@@ -48,33 +48,22 @@ public interface IMybatisPageHelperDao<Target, Key> extends IAbstractDao<Target,
     /**
      * 按条件获取（不含大字段）
      *
-     * @param record   条件
-     * @param distinct 是否distinct
+     * @param record     条件
+     * @param pageBounds 分页参数
      * @return 对象list
      */
     @Override
-    List<Target> selectByExample(@Param("example") Target record, @Param("distinct") boolean distinct);
+    List<Target> selectByExample(@Param("example") Target record, @Param("pageBounds") PageBounds pageBounds);
 
     /**
      * 按条件获取（含大字段）
-     *
-     * @param record   条件
-     * @param distinct 是否distinct
-     * @return 对象list
-     */
-    @Override
-    List<Target> selectByExampleWithBLOBs(@Param("example") Target record, @Param("distinct") boolean distinct);
-
-    /**
-     * 分页获取
      *
      * @param record     条件
      * @param pageBounds 分页参数
      * @return 对象list
      */
     @Override
-    List<Target> selectByExampleByPager(@Param("example") Target record, @Param("pageBounds") PageBounds pageBounds);
-
+    List<Target> selectByExampleWithBLOBs(@Param("example") Target record, @Param("pageBounds") PageBounds pageBounds);
     /**
      * 分页模糊搜索
      *

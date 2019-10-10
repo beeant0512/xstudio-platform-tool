@@ -62,31 +62,21 @@ public interface IMybatisPaginatorDao<T, K> extends IAbstractDao<T, K, PageBound
      * 按条件获取（不含大字段）
      *
      * @param record   条件
-     * @param distinct 是否distinct
+     * @param pageBounds 分页参数
      * @return 对象list
      */
     @Override
-    PageList<T> selectByExample(@Param("example") T record, @Param("distinct") boolean distinct);
+    PageList<T> selectByExample(@Param("example") T record, @Param("pageBounds") PageBounds pageBounds);
 
     /**
      * 按条件获取（含大字段）
      *
      * @param record   条件
-     * @param distinct 是否distinct
-     * @return 对象list
-     */
-    @Override
-    PageList<T> selectByExampleWithBLOBs(@Param("example") T record, @Param("distinct") boolean distinct);
-
-    /**
-     * 分页获取
-     *
-     * @param record     条件
      * @param pageBounds 分页参数
      * @return 对象list
      */
     @Override
-    PageList<T> selectByExampleByPager(@Param("example") T record, @Param("pageBounds") PageBounds pageBounds);
+    PageList<T> selectByExampleWithBLOBs(@Param("example") T record, @Param("pageBounds") PageBounds pageBounds);
 
     /**
      * 分页模糊搜索

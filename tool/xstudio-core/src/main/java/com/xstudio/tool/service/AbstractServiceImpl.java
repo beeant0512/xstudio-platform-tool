@@ -3,7 +3,6 @@ package com.xstudio.tool.service;
 import com.xstudio.tool.enums.EnError;
 import com.xstudio.tool.utils.BaseModelObject;
 import com.xstudio.tool.utils.Msg;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 
 import java.util.Date;
@@ -211,55 +210,6 @@ public abstract class AbstractServiceImpl<T extends BaseModelObject, K, P, L ext
 
         msg.setData(result);
         return msg;
-    }
-
-    @Override
-    public Msg<T> selectOneByExample(T record, boolean distinct) {
-        Msg<T> msg = new Msg<>();
-        M result;
-        try {
-            result = (M) getRepositoryDao().selectByExampleWithBLOBs(record, true);
-        } catch (Exception e) {
-            result = (M) getRepositoryDao().selectByExample(record, true);
-        }
-        if (null == result || result.isEmpty()) {
-            msg.setResult(EnError.NO_MATCH);
-            return msg;
-        }
-
-        if (result.size() > 1) {
-            msg.setResult(EnError.MORE_THAN_ONE);
-            msg.setMsg("获取到的数据大于1条");
-            return msg;
-        }
-
-        msg.setData(result.get(0));
-        return msg;
-    }
-
-    @Override
-    public Msg<T> selectOneByExampleWithBLOBs(T record, boolean distinct) {
-        Msg<T> msg = new Msg<>();
-        M result = (M) getRepositoryDao().selectByExampleWithBLOBs(record, true);
-
-        if (CollectionUtils.isEmpty(result)) {
-            msg.setResult(EnError.NO_MATCH);
-            return msg;
-        }
-
-        if (result.size() > 1) {
-            msg.setResult(EnError.MORE_THAN_ONE);
-            msg.setMsg("获取到的数据大于1条");
-            return msg;
-        }
-
-        msg.setData(result.get(0));
-        return msg;
-    }
-
-    @Override
-    public Msg<T> selectOneByExample(T record) {
-        return selectOneByExample(record, true);
     }
 
     @Override
